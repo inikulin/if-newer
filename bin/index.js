@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const { promisify } = require('util');
 const { spawn } = require('cp-sugar');
 const glob = require('globby');

@@ -1,6 +1,6 @@
 {
     "name": "if-newer",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Run npm task only if any of source files are newer than destination.",
     "main": "bin/index.js",
     "bin": "bin/index.js",
