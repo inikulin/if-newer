@@ -22,7 +22,7 @@ describe('isNewer', () => {
 
     it('Should execute specified command if source files are updated', async () => {
         const run = () =>
-            exec('node bin/index.js "tmp/src/*.js" "tmp/dest/*.js" "node test/cmd.js"');
+            exec('node bin/index.js "tmp/src,tmp/more-src.js" "tmp/dest" "node test/cmd.js"');
 
         const write = async path => {
             await writeFile(path, '');
@@ -51,5 +51,10 @@ describe('isNewer', () => {
         expect(stdout).contains('- tmp/src/file1.js');
         expect(stdout).contains('- tmp/src/file2.js');
         expect(stdout).contains('- tmp/src/file3.js');
+
+        await write('tmp/more-src.js');
+        stdout = await run();
+        expect(stdout).contains('==HEY==');
+        expect(stdout).contains('- tmp/more-src.js');
     });
 });

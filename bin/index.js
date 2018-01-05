@@ -1,10 +1,9 @@
 const { promisify } = require('util');
 const { spawn } = require('cp-sugar');
+const glob = require('globby');
 let { stat } = require('fs');
-let glob = require('glob');
 
 stat = promisify(stat);
-glob = promisify(glob);
 
 main();
 
@@ -36,6 +35,9 @@ async function getInfo(globPattern) {
 }
 
 async function getUpdatedSourceFilesList(src, dest) {
+    src = src.split(',');
+    dest = dest.split(',');
+
     const [srcInfo, destInfo] = await Promise.all([getInfo(src), getInfo(dest)]);
     const destLastModified = destInfo.reduce((lm, i) => Math.max(lm, i.mtime), 0);
 
